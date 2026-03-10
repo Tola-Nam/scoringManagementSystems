@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class TokenStoragesService {
-  constructor() {}
+  constructor() { }
   private _tokenStorageName: string = 'login-token';
 
   private isBrowser(): boolean {

@@ -1,6 +1,8 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./src/**/*.{html,ts}"],
+  content: [
+    "./src/**/*.{html,ts}",
+  ],
   theme: {
     extend: {
       colors: {
@@ -27,9 +29,8 @@ module.exports = {
     themes: ["light", "dark", "cupcake"],
   },
   plugins: [
-    require("tailwindcss"),
-    require("autoprefixer"),
-    require("daisyui"),
-    require("@csstools/postcss-oklab-function")({ preserve: false }),
+    require("daisyui")
   ],
-};
+}
+
+
