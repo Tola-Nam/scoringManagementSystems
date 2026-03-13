@@ -1,10 +1,7 @@
 import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { SigninPageComponent } from '../signin-page/signin-page.component';
-import { Router } from '@angular/router';
-// import { RouterOutlet } from "../../../../node_modules/@angular/router/index";
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterModule, Router } from '@angular/router';
 interface NavItem {
   icon: string;
   label: string;
@@ -49,19 +46,16 @@ interface Achiever {
 @Component({
   selector: 'app-scoring-management-admin',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterOutlet, SigninPageComponent],
+  imports: [CommonModule, FormsModule, RouterModule],
   templateUrl: './scoring-management-system-admin-page.component.html',
   styleUrls: ['./scoring-management-system-admin-page.component.scss'],
 })
 export class ScoringManagementSystemAdminPageComponent implements OnInit {
-
-  ngOnInit(): void {
-    // this.router.navigate(['/studentManagement']);
-  }
-
-
   constructor(private router: Router) {
 
+  }
+  ngOnInit(): void {
+    // this.router.navigate(['/studentManagement']);
   }
   // Sidebar state
   sidebarOpen = signal(true);
@@ -86,13 +80,13 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
   navSections: NavSection[] = [
     {
       title: 'MAIN',
-      items: [{ icon: 'grid', label: 'Dashboard', active: true }],
+      items: [{ icon: 'grid', label: 'Dashboard', route: '/admin', active: true }],
     },
     {
       title: 'ADMINISTRATION',
       items: [
         { icon: 'fa-solid fa-user', label: 'Student Management', route: '/studentManagement' },
-        { icon: 'book-open', label: 'Academics' },
+        { icon: 'book-open', label: 'Academics', route: '/studentManagement' },
         { icon: 'layers', label: 'Study Material' },
         { icon: 'file-text', label: 'Lesson Plan' },
         { icon: 'printer', label: 'Bulk Print' },
@@ -208,6 +202,7 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
   }
 
   onClickRouter(router: string) {
+    console.log(11)
     this.router.navigate([router]);
   }
 }

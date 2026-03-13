@@ -29,4 +29,17 @@ export class TokenStoragesService {
       localStorage.removeItem(this._tokenStorageName);
     }
   }
+
+  saveUserRole(role: string): void {
+    if (this.isBrowser()) {
+      localStorage.setItem('user-role', role);
+    }
+  }
+
+  getUserRole(): string | null {
+    if (this.isBrowser()) {
+      return localStorage.getItem('user-role');
+    }
+    return null;
+  }
 }

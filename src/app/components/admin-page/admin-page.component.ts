@@ -46,7 +46,7 @@ interface Achiever {
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterOutlet],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.scss'
 })

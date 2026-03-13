@@ -4,8 +4,9 @@
 <!-- Stats Row -->
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
     @for (stat of stats; track stat.label) {
-    <div class="card bg-white shadow-sm border border-gray-100 hover:shadow-md transition-shadow">
-        <div class="card-body flex-row items-center gap-4 p-4">
+    <div
+        class="card bg-white shadow-sm border border-gray-100 hover:shadow-md hover:ring-blue-500 hover:border-green-400 transition-shadow">
+        <div class="card-body flex-row items-center gap-4 p-8">
             <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0"
                 [ngClass]="stat.bg">
                 {{ stat.icon }}
@@ -24,7 +25,7 @@
 </div>
 
 <!-- Dashboard Section + Upcoming Events -->
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-6 mt-4">
     <!-- Dashboard Main Panel -->
     <div class="xl:col-span-2 card bg-white shadow-sm border border-gray-100">
         <div class="card-body p-5 space-y-4">

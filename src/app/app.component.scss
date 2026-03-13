@@ -1,0 +1,180 @@
+body {
+    font-family: 'Nunito', sans-serif;
+    background: #f8fffe;
+}
+
+.hero-blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(60px);
+    opacity: 0.18;
+    pointer-events: none;
+}
+
+.dot-grid {
+    background-image: radial-gradient(circle, #10b98133 1px, transparent 1px);
+    background-size: 22px 22px;
+}
+
+.wave-line {
+    position: relative;
+}
+
+.wave-line::after {
+    content: '';
+    display: block;
+    width: 64px;
+    height: 4px;
+    background: linear-gradient(90deg, #10b981, #34d399);
+    border-radius: 9999px;
+    margin: 8px auto 0;
+}
+
+.card-hover {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card-hover:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 20px 48px -8px rgba(16, 185, 129, 0.18);
+}
+
+.stat-bar {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0)
+    }
+
+    50% {
+        transform: translateY(-12px)
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: rotate(0deg)
+    }
+
+    to {
+        transform: rotate(360deg)
+    }
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(32px)
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0)
+    }
+}
+
+.float-anim {
+    animation: float 4s ease-in-out infinite;
+}
+
+.spin-slow {
+    animation: spin-slow 18s linear infinite;
+}
+
+.fade-up {
+    animation: fadeSlideUp 0.7s ease forwards;
+    opacity: 0;
+}
+
+.fade-up-1 {
+    animation-delay: 0.1s;
+}
+
+.fade-up-2 {
+    animation-delay: 0.25s;
+}
+
+.fade-up-3 {
+    animation-delay: 0.4s;
+}
+
+.fade-up-4 {
+    animation-delay: 0.55s;
+}
+
+.avatar-stack .avatar-img {
+    border: 3px solid white;
+    border-radius: 9999px;
+    width: 38px;
+    height: 38px;
+    object-fit: cover;
+    margin-left: -10px;
+    background: #e2e8f0;
+}
+
+.nav-link {
+    position: relative;
+}
+
+.nav-link.active::after,
+.nav-link:hover::after {
+    content: '';
+    display: block;
+    height: 2px;
+    background: #10b981;
+    border-radius: 9999px;
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    right: 0;
+    transition: width 0.2s;
+}
+
+.tag-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-radius: 12px;
+    padding: 10px 18px;
+    font-weight: 700;
+    font-size: 0.93rem;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.tag-pill:hover {
+    filter: brightness(0.95);
+    transform: scale(1.03);
+}
+
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+}
+
+.hero-img-wrap {
+    position: relative;
+    display: inline-block;
+}
+
+.hero-img-wrap img {
+    border-radius: 48% 52% 68% 32% / 42% 36% 64% 58%;
+    width: 340px;
+    height: 420px;
+    object-fit: cover;
+}
+
+.deco-circle-outline {
+    border: 3px solid #10b981;
+    border-radius: 50%;
+    position: absolute;
+}
+
+.deco-circle-fill {
+    border-radius: 50%;
+    position: absolute;
+}
