@@ -31,7 +31,7 @@ export class AuthServiceService {
   }
 
   // --- Token management ---
-  public get token(): string | null {
+  public getToken(): string | null {
     return this._authToken.value;
   }
 

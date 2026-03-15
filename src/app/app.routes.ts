@@ -9,13 +9,13 @@ import { StudentManagementComponent } from './components/student-management/stud
 
 export const routes: Routes = [
     { path: 'signin', component: SigninPageComponent },
+    { path: 'signup', component: SignUpPageComponent },
     {
         path: '',
         component: ScoringManagementSystemAdminPageComponent,
         children: [
             { path: '', redirectTo: 'admin', pathMatch: 'full' },
             { path: 'admin', component: AdminPageComponent },
-            { path: 'signup', component: SignUpPageComponent },
             { path: 'studentManagement', component: StudentManagementComponent },
             { path: 'students', component: StudentsListComponent },
             // Keeping adminPage as an alias if needed

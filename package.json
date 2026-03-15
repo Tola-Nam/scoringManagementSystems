@@ -2,11 +2,12 @@
   "name": "scoring-management-systems",
   "version": "0.0.0",
   "scripts": {
-    "ng": "ng",
-    "start": "ng serve",
-    "build": "ng build",
-    "watch": "ng build --watch --configuration development",
-    "test": "ng test",
+    "ng": "node scripts/ng.mjs",
+    "prestart": "node scripts/banner.mjs",
+    "start": "node scripts/ng.mjs serve",
+    "build": "node scripts/ng.mjs build",
+    "watch": "node scripts/ng.mjs build --watch --configuration development",
+    "test": "node scripts/ng.mjs test",
     "dev": "postcss ./src/scss/style.scss -o ./dist/style.css --watch"
   },
   "private": true,
@@ -20,6 +21,7 @@
     "@angular/platform-browser": "^20.3.17",
     "@angular/platform-browser-dynamic": "^20.3.17",
     "@angular/router": "^20.3.17",
+    "@fontsource/jetbrains-mono": "^5.2.8",
     "@fortawesome/fontawesome-free": "^7.2.0",
     "firebase": "^12.10.0",
     "jwt-decode": "^4.0.0",
@@ -27,6 +29,7 @@
     "postcss-scss": "^4.0.9",
     "rxjs": "~7.8.0",
     "sass": "^1.97.3",
+    "sweetalert2": "^11.26.22",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
   },
@@ -35,11 +38,12 @@
     "@angular/cli": "^20.3.20",
     "@angular/compiler-cli": "^20.3.17",
     "@csstools/postcss-oklab-function": "^5.0.2",
+    "@tailwindcss/postcss": "^4.2.1",
     "@types/jasmine": "~5.1.0",
     "@types/jest": "^30.0.0",
     "@types/node": "^25.4.0",
     "autoprefixer": "^10.4.27",
-    "daisyui": "^4.12.24",
+    "daisyui": "^5.5.19",
     "jasmine": "^6.1.0",
     "jasmine-core": "~5.2.0",
     "karma": "~6.4.0",
@@ -48,7 +52,7 @@
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
     "postcss": "^8.5.8",
-    "tailwindcss": "^3.4.19",
+    "tailwindcss": "^4.2.1",
     "typescript": "~5.9.3"
   }
 }

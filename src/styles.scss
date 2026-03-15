@@ -1,3 +1,13 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+// 1. @use rules FIRST
+@use "tailwindcss";
+
+// 2. @import after
+@import '@fontsource/jetbrains-mono/300.css';
+
+// 3. @plugin after
+@plugin "daisyui";
+
+// 4. Your styles last
+* {
+    font-family: 'JetBrains Mono', monospace;
+}
