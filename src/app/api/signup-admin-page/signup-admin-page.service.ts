@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthServiceService } from '../auth/auth.service.service';
 import { environments } from 'src/environments/environments.dev';
-const urlExtension = 'sigup';
+const urlExtension = '/auth/signup';
 @Injectable({
   providedIn: 'root',
 })
@@ -32,9 +32,10 @@ export class SignupAdminPageService {
     };
   }
 
-  public signupAdminPage(data: any): Observable<any> {
-    return this.httpClient.post<{ token: string, user: any }>(
+  public signupAdminPage(data: any): Observable<{ token: string, data: any }> {
+    return this.httpClient.post<{ token: string, data: any }>(
       this.API,
+      data,
       this.getHttpOption()
     );
   }

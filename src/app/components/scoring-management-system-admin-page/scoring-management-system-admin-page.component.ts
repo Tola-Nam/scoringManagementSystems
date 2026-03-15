@@ -2,6 +2,11 @@ import { Component, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
+import { User } from 'src/app/models/Users';
+import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
+import Swal from 'sweetalert2';
+import { TokenStoragesService } from 'src/app/api/tokens/token-storages.service';
+
 interface NavItem {
   icon: string;
   label: string;
@@ -51,11 +56,16 @@ interface Achiever {
   styleUrls: ['./scoring-management-system-admin-page.component.scss'],
 })
 export class ScoringManagementSystemAdminPageComponent implements OnInit {
-  constructor(private router: Router) {
+
+  User: User | null = null;
+  constructor(private router: Router, private authService: AuthServiceService, private tokenStorage: TokenStoragesService) {
 
   }
   ngOnInit(): void {
-    // this.router.navigate(['/studentManagement']);
+    this.authService.currentUser$.subscribe(user => {
+      this.User = user;
+      // console.log('Current user:', this.User);
+    });
   }
   // Sidebar state
   sidebarOpen = signal(true);
@@ -201,8 +211,36 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
     return icons[icon] ?? '•';
   }
 
+  logoutAdminPage(): void {
+    Swal.fire({
+      icon: 'question',
+      iconColor: '#b91c1c',
+      showCancelButton: true,
+      showConfirmButton: true,
+      cancelButtonText: 'ទេ',
+      confirmButtonText: 'យល់ព្រម',
+      html: `
+          <div class="text-lg">
+            <p class="text-lg">តើអ្នកពិតជាចង់ចាកចេញពីកម្មវិធីនេះ?</p>
+          </div>
+      `,
+      color: '#b91c1c',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+    })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.tokenStorage.removeToken();
+          this.router.navigate(['/signin']).then(() => {
+            window.location.reload();
+          });
+        }
+      });
+  }
+
   onClickRouter(router: string) {
-    console.log(11)
+    // console.log(11)
     this.router.navigate([router]);
   }
+
 }

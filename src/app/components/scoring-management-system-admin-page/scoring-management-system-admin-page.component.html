@@ -99,17 +99,58 @@
           </svg>
         </button>
         <div class="flex items-center gap-2 pl-2 border-l border-gray-200">
-          <div class="avatar placeholder">
+          <!-- <div class="avatar placeholder">
             <div class="w-8 rounded-full bg-blue-600 text-white text-xs font-bold">
               <span>TN</span>
             </div>
+          </div> -->
+          <div class="dropdown dropdown-end">
+
+            <div tabindex="0" role="button" class="flex items-center gap-2 cursor-pointer">
+
+              <!-- Avatar -->
+              <div class="avatar placeholder">
+                <div class="bg-neutral text-neutral-content rounded-full w-10">
+                  <span>{{ User?.fullName?.charAt(0) }}</span>
+                </div>
+              </div>
+
+              <!-- User Info -->
+              <div class="hidden sm:block text-left">
+                @if(User){
+                <p class="text-sm font-semibold text-gray-800 leading-none">
+                  {{ User?.fullName }}
+                </p>
+                }
+                <p class="text-xs text-gray-400">{{ User?.email }}</p>
+              </div>
+
+            </div>
+
+            <!-- Dropdown Menu -->
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow-lg mt-3">
+              <li>
+                <a>Profile</a>
+              </li>
+              <li>
+                <a>Settings</a>
+              </li>
+              <li>
+                <button class="btn btn-error" (click)="logoutAdminPage()">Logout</button>
+              </li>
+            </ul>
+
           </div>
-          <div class="hidden sm:block">
+          <!-- <div class="hidden sm:block">
+            @if(User){
+
             <p class="text-sm font-semibold text-gray-800 leading-none">
-              Tola Nam
+              {{User?.fullName}}
             </p>
-            <p class="text-xs text-gray-400">[EMAIL_ADDRESS]</p>
-          </div>
+            }
+
+            <p class="text-xs text-gray-400">{{User?.email}}</p>
+          </div> -->
         </div>
       </div>
     </header>

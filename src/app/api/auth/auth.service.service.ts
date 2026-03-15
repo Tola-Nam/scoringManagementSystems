@@ -3,6 +3,7 @@ import { BehaviorSubject } from 'rxjs';
 import { TokenStoragesService } from '../tokens/token-storages.service';
 import { jwtDecode } from 'jwt-decode';
 import { HttpClient } from '@angular/common/http';
+import { User } from '../../models/Users';
 
 interface JwtPayload {
   exp?: number;
@@ -16,6 +17,10 @@ export class AuthServiceService {
   private _authToken = new BehaviorSubject<string | null>(null);
   private _userRole = new BehaviorSubject<string | null>(null);
 
+  // NEW: store current user info
+  private _currentUser = new BehaviorSubject<User | null>(null);
+  public currentUser$ = this._currentUser.asObservable();
+
   constructor(
     private tokenStorage: TokenStoragesService,
     private http: HttpClient
@@ -25,6 +30,11 @@ export class AuthServiceService {
     if (token && this.isTokenValid(token)) {
       this._authToken.next(token);
       this._userRole.next(this.extractRole(token));
+      // Optionally load user info from localStorage if you saved it before
+      const savedUser = localStorage.getItem('currentUser');
+      if (savedUser) {
+        this._currentUser.next(JSON.parse(savedUser));
+      }
     } else {
       this.clearToken();
     }
@@ -35,11 +45,16 @@ export class AuthServiceService {
     return this._authToken.value;
   }
 
-  public setToken(token: string): void {
+  public setToken(token: string, user?: User): void {
     if (this.isTokenValid(token)) {
       this.tokenStorage.storeToken(token);
       this._authToken.next(token);
-      this._userRole.next(this.extractRole(token)); // update role dynamically
+      this._userRole.next(this.extractRole(token));
+
+      if (user) {
+        this._currentUser.next(user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+      }
     } else {
       this.clearToken();
     }
@@ -48,12 +63,9 @@ export class AuthServiceService {
   public clearToken(): void {
     this.tokenStorage.removeToken();
     this._authToken.next(null);
-    this._userRole.next(null); // clear role too
-  }
-
-  public isAuthenticated(): boolean {
-    const token = this._authToken.value;
-    return !!token && this.isTokenValid(token);
+    this._userRole.next(null);
+    this._currentUser.next(null);
+    localStorage.removeItem('currentUser');
   }
 
   // --- Role management ---
@@ -65,6 +77,15 @@ export class AuthServiceService {
     return this._userRole.asObservable();
   }
 
+  // --- Current user management ---
+  public getCurrentUser(): User | null {
+    // return this._currentUser.value;
+    this._currentUser.next(this._currentUser.value);
+    localStorage.setItem('currentUser', JSON.stringify(this._currentUser.value));
+    return this._currentUser.value;
+  }
+
+  // --- Token helpers ---
   private extractRole(token: string): string | null {
     try {
       const decoded: JwtPayload = jwtDecode(token);
@@ -75,7 +96,6 @@ export class AuthServiceService {
     }
   }
 
-  // --- Token validation ---
   private isTokenValid(token: string): boolean {
     try {
       if (!token) return false;

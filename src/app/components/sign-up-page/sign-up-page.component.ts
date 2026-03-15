@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import Swal from 'sweetalert2';
-
+import { SignupAdminPageService } from 'src/app/api/signup-admin-page/signup-admin-page.service';
+import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
+import { Router } from '@angular/router';
+import { User } from 'src/app/models/Users';
 @Component({
   selector: 'app-sign-up-page',
   standalone: true,
@@ -12,7 +15,7 @@ import Swal from 'sweetalert2';
 })
 export class SignUpPageComponent {
 
-  loginForm: FormGroup;
+  signupForm: FormGroup;
   passwordVisible = false;
 
   passwordStrength = 0;
@@ -20,31 +23,31 @@ export class SignUpPageComponent {
 
   strengthBars = [1, 2, 3, 4];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private signupAdminPageService: SignupAdminPageService, private authService: AuthServiceService, private router: Router) {
 
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    this.signupForm = this.fb.group({
+      fullName: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       rememberMe: [true]
     });
 
-    this.loginForm.get('password')?.valueChanges.subscribe(value => {
+    this.signupForm.get('password')?.valueChanges.subscribe(value => {
       this.checkPasswordStrength(value);
     });
   }
 
   // getters
-  get usernameControl() {
-    return this.loginForm.get('username');
+  get fullNameControl() {
+    return this.signupForm.get('fullName');
   }
 
   get emailControl() {
-    return this.loginForm.get('email');
+    return this.signupForm.get('email');
   }
 
   get passwordControl() {
-    return this.loginForm.get('password');
+    return this.signupForm.get('password');
   }
 
   togglePassword() {
@@ -53,20 +56,48 @@ export class SignUpPageComponent {
 
   handleSignupAdminPage() {
 
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+    if (this.signupForm.invalid) {
+      this.signupForm.markAllAsTouched();
       return;
     }
 
-    console.log(this.loginForm.value);
+    this.signupAdminPageService.signupAdminPage(this.signupForm.value).subscribe({
+      next: (res) => {
+        // console.log(res)
+        // Adjust fields according to your API response
+        if (res) {
+          const userData = res.data;
+          this.authService.setToken(userData.verificationToken, {
+            fullName: userData.fullName,
+            email: userData.email,
+            role: userData.roles?.[0] || '',
+            token: userData.verificationToken
+          });
 
-    Swal.fire({
-      icon: 'success',
-      title: 'Login Successful',
-      text: 'Welcome back!',
-      confirmButtonColor: '#3b82f6'
-    });
-
+          const fullname = res.data.fullName;
+          Swal.fire({
+            icon: 'success',
+            timer: 2500,
+            iconColor: '#10b981',
+            html: `<p style="font-size:16px;">បាន<span style="font-weight: bold;color: #10b981;">SignUp</span>បានទេ!</p>`,
+            showCancelButton: false,
+            showConfirmButton: false,
+          }).then(() => {
+            this.router.navigate(['']);
+          });
+        }
+      },
+      error: (err) => {
+        Swal.fire({
+          icon: 'warning',
+          timer: 2500,
+          iconColor: '#b91c1c',
+          html: `<p style="font-size:16px;">មិនអាច<span style="font-weight: bold;color: #b91c1c;">SignUp</span>បានទេ!</p>`,
+          showCancelButton: false,
+          showConfirmButton: false,
+        });
+      }
+    })
   }
 
   // password strength
