@@ -27,19 +27,3 @@ export const routes: Routes = [
         ]
     }
 ];
-// export const routes: Routes = [
-//     { path: 'signin', component: SigninPageComponent },
-//     { path: 'signup', component: SignUpPageComponent },
-//     { path: 'otp', component: OtpPageComponent },
-//     {
-//         path: '',
-//         component: ScoringManagementSystemAdminPageComponent,
-//         children: [
-//             { path: '', redirectTo: 'admin', pathMatch: 'full' },
-//             { path: 'admin', component: AdminPageComponent },
-//             { path: 'studentManagement', component: StudentManagementComponent },
-//             { path: 'students', component: StudentsListComponent },
-//             { path: 'adminPage', redirectTo: 'admin', pathMatch: 'full' }
-//         ]
-//     }
-// ];

@@ -1,44 +1,60 @@
 <div class="flex items-center justify-center min-h-screen bg-gray-100 p-4">
     <div class="w-full max-w-md bg-white p-6 rounded-2xl shadow-lg">
         <h2 class="text-2xl font-semibold text-center mb-6">Welcome back</h2>
-        <form action="" [formGroup]="signinForm" (ngSubmit)="handleSigninAdminPage()" class="space-y-5">
 
-            <!-- Username Field -->
-            <label class="flex items-center border border-gray-300 rounded-full p-2 mb-3">
-                <svg class="h-6 w-6 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                        stroke="currentColor">
-                        <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </g>
-                </svg>
-                <input type="text" formControlName="email" required placeholder="Username Or email"
-                    pattern="[A-Za-z][A-Za-z0-9\-]*" minlength="3" maxlength="30" title="Only letters, numbers or dash"
-                    class="flex-1 outline-none" />
-            </label>
-            <p class="text-gray-500 text-sm text-center mb-4">
-                Must be 3 to 30 characters<br />
-                containing only letters, numbers or dash
-            </p>
+        <form [formGroup]="signinForm" (ngSubmit)="handleSigninAdminPage()">
 
-            <!-- Email Field -->
-            <label class="flex items-center border border-gray-300 rounded-full p-2 mb-3">
-                <svg class="h-6 w-6 text-gray-400 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
-                        stroke="currentColor">
-                        <rect width="20" height="16" x="2" y="4" rx="2"></rect>
-                        <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
-                    </g>
-                </svg>
-                <input type="password" formControlName="password" placeholder="password" required
-                    class="flex-1 outline-none" />
-            </label>
-            <div class="text-gray-500 text-sm text-center mb-6">
-                Enter valid password
-            </div>
+            <!-- EMAIL -->
+            <fieldset class="fieldset w-full mb-4">
+                <label class="label">Email</label>
+                <div class="relative">
+                    <!-- Input -->
+                    <input type="email" formControlName="email" placeholder="Email"
+                        class="input validator w-full pl-10 rounded-full" />
+                    <!-- Icon -->
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 pointer-events-none">
+                        <i class="fa-solid fa-envelope"></i>
+                    </span>
+                </div>
 
-            <!-- Submit Button -->
-            <button class="btn btn-primary w-full">
+                <!-- Error -->
+                <p class="text-error text-sm mt-1" *ngIf="emailControl?.invalid && emailControl?.touched">
+                    Email is required
+                </p>
+            </fieldset>
+
+            <!-- PASSWORD -->
+            <fieldset class="fieldset w-full mb-4">
+                <label class="label">Password</label>
+
+                <div class="relative">
+
+                    <!-- Left Icon -->
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400 pointer-events-none">
+                        <i class="fa-solid fa-lock"></i>
+                    </span>
+
+                    <!-- Input -->
+                    <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="Password"
+                        class="input validator w-full pl-10 pr-10 rounded-full" />
+
+                    <!-- Right Icon -->
+                    <span class="absolute inset-y-0 right-0 flex items-center pr-3 cursor-pointer text-gray-500"
+                        (click)="showPassword = !showPassword">
+                        <i [class]="showPassword ? 'fa-solid fa-eye-slash' : 'fa-solid fa-eye'"></i>
+                    </span>
+
+                </div>
+
+                <!-- ✅ Move error OUTSIDE -->
+                <p class="text-error text-sm mt-1" *ngIf="passwordControl?.invalid && passwordControl?.touched">
+                    Must be at least 8 characters with uppercase, lowercase, and number
+                </p>
+
+            </fieldset>
+
+            <!-- BUTTON -->
+            <button class="btn btn-primary w-full mt-4" [disabled]="signinForm.invalid">
                 Sign In
             </button>
 

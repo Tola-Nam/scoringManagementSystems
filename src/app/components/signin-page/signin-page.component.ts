@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
 import { SigninAdminPageService } from 'src/app/api/signin-admin-page/signin-admin-page.service';
@@ -7,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-signin-page',
   standalone: true,
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './signin-page.component.html',
   styleUrl: './signin-page.component.scss'
 })
@@ -20,15 +21,26 @@ export class SigninPageComponent {
     });
   }
 
+  showPassword = false;
+
+  get emailControl() {
+    return this.signinForm.get('email');
+  }
+
+  get passwordControl() {
+    return this.signinForm.get('password');
+  }
+
   handleSigninAdminPage() {
-    // console.log("value", this.signinForm.value);
-    if (this.signinForm.valid) {
+
+    if (this.signinForm.invalid) {
       this.signinForm.markAllAsTouched();
       return;
     }
 
     this.signinAdminPage.signinAdminPage(this.signinForm.value).subscribe({
       next: (res) => {
+        console.log("res", res);
         if (res) {
           const userData = res.data;
           this.authService.setToken(userData.verificationToken, {

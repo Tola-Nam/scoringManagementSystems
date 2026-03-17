@@ -1,7 +1,8 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { RouterOutlet, RouterModule, Router } from '@angular/router';
+import { Subject } from 'rxjs';
 import { User } from 'src/app/models/Users';
 import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
 import Swal from 'sweetalert2';
@@ -58,6 +59,7 @@ interface Achiever {
 export class ScoringManagementSystemAdminPageComponent implements OnInit {
   isLoading = true;
   User: User | null = null;
+  @ViewChild('myModal') myModal!: ElementRef<HTMLDialogElement>;
   constructor(private router: Router, private authService: AuthServiceService, private tokenStorage: TokenStoragesService) {
 
   }
@@ -67,9 +69,6 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
       setTimeout(() => {
         this.isLoading = false;
       }, 800); // simulate loading
-
-      // this.isLoading = false
-      // console.log('Current user:', this.User);
     });
   }
   // Sidebar state
@@ -101,7 +100,7 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
       title: 'ADMINISTRATION',
       items: [
         { icon: 'fa-solid fa-user', label: 'Student Management', route: '/studentManagement' },
-        { icon: 'book-open', label: 'Academics', route: '/studentManagement' },
+        { icon: 'book-open', label: 'Academics', route: '/students' },
         { icon: 'layers', label: 'Study Material' },
         { icon: 'file-text', label: 'Lesson Plan' },
         { icon: 'printer', label: 'Bulk Print' },
@@ -244,8 +243,14 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
   }
 
   onClickRouter(router: string) {
-    // console.log(11)
     this.router.navigate([router]);
   }
 
+  openModal() {
+    this.myModal.nativeElement.showModal();
+  }
+
+  closeModal() {
+    this.myModal.nativeElement.close();
+  }
 }
