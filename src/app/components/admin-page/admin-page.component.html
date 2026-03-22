@@ -9,7 +9,8 @@
         <div class="card-body flex-row items-center gap-4 p-6">
             <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0"
                 [ngClass]="stat.bg">
-                {{ stat.icon }}
+                <!-- {{ stat.icon }} -->
+                <i [class]="stat.icon"></i>
             </div>
             <div>
                 <p class="text-xs text-gray-400 font-medium">

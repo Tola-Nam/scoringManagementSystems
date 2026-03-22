@@ -1,22 +1,85 @@
 <!-- Desktop Table -->
-<div class="hidden sm:block">
+<div class="flex justify-end items-end gap-2">
+    <!-- Search -->
+    <div class="relative w-full max-w-sm">
+        <label class="input input-bordered flex items-center gap-1 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-50" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
+            </svg>
+            <input type="search" class="grow border-0 bg-transparent outline-none" placeholder="Search" />
+        </label>
+    </div>
+    <!-- Button -->
+    <button (click)="handleToggleStep()" class="btn btn-primary rounded-full">{{ showStep ? 'Hide Steps' : 'Show Steps'
+        }}
+        Add Student
+    </button>
+</div>
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-3">
+    @for (stat of stats; track stat.label) {
+    <div
+        class="card bg-white shadow-sm border border-gray-100 hover:shadow-md hover:ring-blue-500 hover:border-green-400 transition-shadow rounded-lg">
+        <div class="card-body flex-row items-center gap-4 p-6">
+            <div class="w-12 h-12 rounded-full flex items-center justify-center text-2xl flex-shrink-0"
+                [ngClass]="stat.bg">
+                <i [class]="stat.icon"></i>
+            </div>
+            <div>
+                <p class="text-xs text-gray-400 font-medium">
+                    {{ stat.label }}
+                </p>
+                <p class="text-2xl font-bold text-gray-800">
+                    {{ stat.value.toLocaleString() }}
+                </p>
+            </div>
+        </div>
+    </div>
+    }
+</div>
+@if(showStep){
+<ul class="steps">
+    <li class="step step-primary">Register</li>
+    <li class="step step-primary">Choose plan</li>
+    <li class="step">Purchase</li>
+    <li class="step">Receive Product</li>
+</ul>
+}
+
+<div class="hidden sm:block mt-5">
     <table class="table w-full">
         <thead>
             <tr>
-                <th>#</th>
-                <th>Student Code</th>
-                <th>Name</th>
-                <th>Class</th>
-                <th>Status</th>
-                <th>Action</th>
+                <th>#index</th>
+                <th>khFirstName</th>
+                <th>khLastName</th>
+                <th>enFirstName</th>
+                <th>enLastName</th>
+                <th>studentCode</th>
+                <th>className</th>
+                <th>gender</th>
+                <th>phoneNumber</th>
+                <th>dateofBirth</th>
+                <th>address</th>
+                <th>status</th>
+                <th>action</th>
             </tr>
         </thead>
         <tbody class="divide-y divide-gray-200">
-            <tr *ngFor="let item of students; let i = index" class="hover:bg-gray-50 odd:bg-white even:bg-gray-50">
-                <td>{{ i + 1 }}</td>
-                <td class="px-4 py-3">{{ item.studentCode }}</td>
-                <td class="px-4 py-3">{{ item.name }}</td>
-                <td class="px-4 py-3">{{ item.classes?.name }}</td>
+            @for (item of students; track $index) {
+            <tr class="hover:bg-gray-50 odd:bg-white even:bg-gray-50">
+                <td>{{ $index + 1 }}</td>
+                <td class="px-4 py-3">{{ item.khFirstName || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.khLastName || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.enFirstName || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.enLastName || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.studentCode || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.classId.className || 'NA'}}</td>
+                <td class="px-4 py-3"> {{ item.gender === 'M' ? 'MALE' : 'FEMALE' ||'NA' }}</td>
+                <td class="px-4 py-3">{{ item.phoneNumber || 'NA' }}</td>
+                <td class="px-4 py-3">{{ item.dateOfBirth || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.address ||'NA' }}</td>
                 <td class="px-4 py-3">
                     <span class="px-2 py-1 rounded text-white"
                         [ngClass]="item.status === 'INACTIVE' ? 'bg-red-500' : 'bg-green-500'">
@@ -39,6 +102,7 @@
                     </div>
                 </td>
             </tr>
+            }
         </tbody>
     </table>
 </div>

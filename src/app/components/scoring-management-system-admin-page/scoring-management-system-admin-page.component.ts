@@ -20,13 +20,6 @@ interface NavSection {
   items: NavItem[];
 }
 
-interface StatCard {
-  icon: string;
-  label: string;
-  value: number;
-  bg: string;
-}
-
 interface PerformanceBar {
   label: string;
   passed: number;
@@ -94,15 +87,15 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
   navSections: NavSection[] = [
     {
       title: 'MAIN',
-      items: [{ icon: 'grid', label: 'Dashboard', route: '/admin', active: true }],
+      items: [{ icon: 'fa-solid fa-gauge-high', label: 'Dashboard', route: '/admin', active: true }],
     },
     {
       title: 'ADMINISTRATION',
       items: [
         { icon: 'fa-solid fa-user', label: 'Student Management', route: '/studentManagement' },
-        { icon: 'book-open', label: 'Academics', route: '/students' },
+        { icon: 'fas fa-user-shield', label: 'permissions', route: '/permissions' },
         { icon: 'layers', label: 'Study Material' },
-        { icon: 'file-text', label: 'Lesson Plan' },
+        { icon: 'fas fa-user-shield', label: 'Lesson Plan' },
         { icon: 'printer', label: 'Bulk Print' },
       ],
     },
@@ -123,14 +116,6 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
         { icon: 'list', label: 'Syllabus' },
       ],
     },
-  ];
-
-  // Stat cards
-  stats: StatCard[] = [
-    { icon: '🎓', label: 'Students', value: 2000, bg: 'bg-blue-50' },
-    { icon: '👩‍🏫', label: 'Teachers', value: 120, bg: 'bg-pink-50' },
-    { icon: '👨‍👩‍👧', label: 'Parents', value: 2115, bg: 'bg-orange-50' },
-    { icon: '🧑‍💼', label: 'Staff', value: 82, bg: 'bg-teal-50' },
   ];
 
   // Performance chart data
@@ -196,24 +181,24 @@ export class ScoringManagementSystemAdminPageComponent implements OnInit {
   }
 
   // Helper for nav icons
-  getNavIcon(icon: string): string {
-    const icons: Record<string, string> = {
-      grid: '⊞',
-      shield: '🛡',
-      'book-open': '📖',
-      layers: '📚',
-      'file-text': '📄',
-      printer: '🖨',
-      user: '👤',
-      'credit-card': '💳',
-      clipboard: '📋',
-      truck: '🚌',
-      book: '📗',
-      calendar: '📅',
-      list: '📝',
-    };
-    return icons[icon] ?? '•';
-  }
+  // getNavIcon(icon: string): string {
+  //   const icons: Record<string, string> = {
+  //     grid: '⊞',
+  //     shield: '🛡',
+  //     'book-open': '📖',
+  //     layers: '📚',
+  //     'file-text': '📄',
+  //     printer: '🖨',
+  //     user: '👤',
+  //     'credit-card': '💳',
+  //     clipboard: '📋',
+  //     truck: '🚌',
+  //     book: '📗',
+  //     calendar: '📅',
+  //     list: '📝',
+  //   };
+  //   return icons[icon] ?? '•';
+  // }
 
   logoutAdminPage(): void {
     Swal.fire({

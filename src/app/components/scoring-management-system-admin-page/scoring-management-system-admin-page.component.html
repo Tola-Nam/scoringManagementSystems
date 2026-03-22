@@ -82,11 +82,10 @@
           @for (item of section.items; track item.label) {
           <button (click)="onClickRouter(item.route)"
             class="w-full flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-150 hover:cursor-pointer"
-            [class.bg-blue-500]="item.active" [class.text-white-200]="item.active" [class.text-blue-200]="!item.active"
+            [class.bg-blue-300]="item.active" [class.text-white-200]="item.active" [class.text-white-200]="!item.active"
             [class.hover:bg-gray-500]="!item.active">
             <span class="w-5 h-5 flex-shrink-0 flex items-center justify-center text-base">
-              {{ getNavIcon(item.icon) }}
-              <!-- <i [class]="item.icon"></i> -->
+              <i [class]="item.icon"></i>
             </span>
             @if (sidebarOpen()) {
             <span class="truncate">{{ item.label }}</span>
@@ -110,16 +109,14 @@
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
             </svg>
           </button>
-          <div class="relative max-w-md w-full">
-            <label
-              class="input input-bordered flex items-center gap-2 rounded-full focus:ring-4 focus:ring-blue-500 focus:ring-opacity-70">
-              <input type="search" class="grow bg-white text-black " placeholder="Search" />
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                class="h-4 w-4 opacity-70">
-                <path fill-rule="evenodd"
-                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                  clip-rule="evenodd" />
+          <div class="relative w-full max-w-sm">
+            <label class="input input-bordered flex items-center gap-1 rounded-full">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 opacity-50" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" />
+                <path d="m21 21-4.35-4.35" />
               </svg>
+              <input type="search" class="grow border-0 bg-transparent outline-none" placeholder="Search" />
             </label>
           </div>
         </div>
@@ -169,18 +166,6 @@
                   <p class="py-4">Press ESC key or click on ✕ button to close</p>
                 </div>
               </dialog>
-              <!-- <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-50 w-52 p-2 shadow-lg mt-3">
-                <li>
-                  <a>Change Profile</a>
-                </li>
-                <li>
-                  <a class="mb-4">Settings</a>
-                </li>
-                <li>
-                  <button class="btn btn-error p-2" (click)="logoutAdminPage()">Logout</button>
-                </li>
-              </ul> -->
-
             </div>
           </div>
         </div>

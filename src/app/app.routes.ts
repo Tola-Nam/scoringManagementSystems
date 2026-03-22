@@ -7,7 +7,7 @@ import { StudentsListComponent } from './components/students-list/students-list.
 import { AdminPageComponent } from './components/admin-page/admin-page.component';
 import { StudentManagementComponent } from './components/student-management/student-management.component';
 import { OtpPageComponent } from './components/otp-page/otp-page.component';
-
+import { PermissionAdminPageComponent } from './components/permission-admin-page/permission-admin-page.component';
 export const routes: Routes = [
     { path: 'signin', component: SigninPageComponent },
     { path: 'signup', component: SignUpPageComponent },
@@ -23,6 +23,7 @@ export const routes: Routes = [
             { path: 'admin', component: AdminPageComponent },
             { path: 'studentManagement', component: StudentManagementComponent },
             { path: 'students', component: StudentsListComponent },
+            { path: 'permissions', component: PermissionAdminPageComponent },
             { path: 'adminPage', redirectTo: 'admin', pathMatch: 'full' }
         ]
     }

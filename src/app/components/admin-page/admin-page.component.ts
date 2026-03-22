@@ -109,10 +109,10 @@ export class AdminPageComponent {
 
   // Stat cards
   stats: StatCard[] = [
-    { icon: '🎓', label: 'Students', value: 2000, bg: 'bg-blue-50' },
-    { icon: '👩‍🏫', label: 'Teachers', value: 120, bg: 'bg-pink-50' },
-    { icon: '👨‍👩‍👧', label: 'Parents', value: 2115, bg: 'bg-orange-50' },
-    { icon: '🧑‍💼', label: 'Staff', value: 82, bg: 'bg-teal-50' },
+    { icon: 'fa-solid fa-person-dress', label: 'Students', value: 2000, bg: 'bg-blue-50' },
+    { icon: 'fa-solid fa-person-pregnant', label: 'Teachers', value: 120, bg: 'bg-pink-50' },
+    { icon: 'fa-solid fa-users', label: 'Parents', value: 2115, bg: 'bg-orange-50' },
+    { icon: 'fa-solid fa-users', label: 'Staff', value: 82, bg: 'bg-teal-50' },
   ];
 
   // Performance chart data
