@@ -79,10 +79,10 @@ export class AuthServiceService {
 
   // --- Current user management ---
   public getCurrentUser(): User | null {
-    // return this._currentUser.value;
-    this._currentUser.next(this._currentUser.value);
-    localStorage.setItem('currentUser', JSON.stringify(this._currentUser.value));
     return this._currentUser.value;
+    // this._currentUser.next(this._currentUser.value);
+    // localStorage.setItem('currentUser', JSON.stringify(this._currentUser.value));
+    // return this._currentUser.value;
   }
 
   // --- Token helpers ---

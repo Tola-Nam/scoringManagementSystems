@@ -75,7 +75,7 @@
                 <td class="px-4 py-3">{{ item.enFirstName || 'NA'}}</td>
                 <td class="px-4 py-3">{{ item.enLastName || 'NA'}}</td>
                 <td class="px-4 py-3">{{ item.studentCode || 'NA'}}</td>
-                <td class="px-4 py-3">{{ item.classId.className || 'NA'}}</td>
+                <td class="px-4 py-3">{{ item.className || 'NA'}}</td>
                 <td class="px-4 py-3"> {{ item.gender === 'M' ? 'MALE' : 'FEMALE' ||'NA' }}</td>
                 <td class="px-4 py-3">{{ item.phoneNumber || 'NA' }}</td>
                 <td class="px-4 py-3">{{ item.dateOfBirth || 'NA'}}</td>
@@ -91,13 +91,17 @@
                         <!-- View button: show for everyone except ROLE_ADMIN -->
                         <button *ngIf="currentUserRole !== 'ROLE_ADMIN'"
                             class="bg-blue-500 hover:bg-blue-600 text-white px-2 py-1 rounded text-xs">
-                            View
+                            <i class="fa-solid fa-eye"></i>
                         </button>
 
                         <!-- Edit button: show only for ROLE_ADMIN -->
-                        <button *ngIf="currentUserRole !== 'ROLE_ADMIN'"
+                        <button *ngIf="currentUserRole === 'ROLE_STAFF'"
                             class="bg-yellow-500 hover:bg-yellow-600 text-white px-2 py-1 rounded text-xs">
-                            Edit
+                            <i class="fa-solid fa-pen-to-square"></i>
+                        </button>
+                        <button *ngIf="currentUserRole === 'ROLE_STAFF'"
+                            class="bg-red-500 hover:bg-red-600 text-white px-2 py-1 rounded text-xs">
+                            <i class="fa-solid fa-trash"></i>
                         </button>
                     </div>
                 </td>

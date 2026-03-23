@@ -5,6 +5,7 @@ import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
 import { SigninAdminPageService } from 'src/app/api/signin-admin-page/signin-admin-page.service';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { User } from 'src/app/models/Users';
 @Component({
   selector: 'app-signin-page',
   standalone: true,
@@ -40,13 +41,14 @@ export class SigninPageComponent {
 
     this.signinAdminPage.signinAdminPage(this.signinForm.value).subscribe({
       next: (res) => {
-        console.log("res", res);
+        // console.log("res", res);
         if (res) {
           const userData = res.data;
+          // console.log("res", userData)
           this.authService.setToken(userData.verificationToken, {
             fullName: userData.fullName,
             email: userData.email,
-            role: userData.roles?.[0] || '',
+            role: userData.role || '',
             token: userData.verificationToken
           });
         }

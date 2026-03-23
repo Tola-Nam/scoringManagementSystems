@@ -67,10 +67,11 @@ export class SignUpPageComponent {
         // Adjust fields according to your API response
         if (res) {
           const userData = res.data;
+
           this.authService.setToken(userData.verificationToken, {
             fullName: userData.fullName,
             email: userData.email,
-            role: userData.roles?.[0] || '',
+            role: userData.role || '',
             token: userData.verificationToken
           });
 

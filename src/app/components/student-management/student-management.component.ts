@@ -5,6 +5,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { AuthServiceService } from 'src/app/api/auth/auth.service.service';
 import { StudentsServiceService } from 'src/app/api/students-service/students-service.service';
+import { User } from 'src/app/models/Users';
 interface StatCard {
   icon: string;
   label: string;
@@ -52,7 +53,7 @@ export interface ApiResponse {
 export class StudentManagementComponent {
   students: any[] = [];
   showStep: boolean = false;
-
+  currentUserRole: string = '';
   stats: StatCard[] = [
     { icon: 'fa-solid fa-users', label: 'Students', value: 2000, bg: 'bg-blue-50' },
     { icon: 'fa-solid fa-venus', label: 'Female', value: 120, bg: 'bg-pink-50' },
@@ -64,10 +65,17 @@ export class StudentManagementComponent {
     this.getAllStudents();
 
   }
+  ngOnInit() {
+    const user = JSON.parse(localStorage.getItem('currentUser') || '{}');
+    this.currentUserRole = user.role;
+    this.getAllStudents();
+  }
   getAllStudents() {
+    // console.log(this.currentUser)
     this.studentsService.getAllStudents().subscribe({
       next: (res: ApiResponse) => {
         this.students = res.content;
+        // console.log(this.user)
       },
       error: (err) => {
         console.log(err);
